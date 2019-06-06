@@ -4,24 +4,25 @@ const uuid = require('uuid');
 const categoriesSchema = require('./categories-schema.js');
 
 class Categories {
-
   constructor() {
   }
 
   get(_id) {
     let queryObj = _id ? {_id} : {};
-    return categoriesSchema.find(queryObj);
+    let result = categoriesSchema.find(queryObj);
+    return result;
   }
   
   post(record) {
     let _id = uuid();
     record._id = _id; 
     let newRecord = new categoriesSchema(record);
-    return newRecord;
+    return newRecord.save();
   }
 
   put(_id, record) {
-    return categoriesSchema.findByIdAndUpdate(_id, record, {new: true});
+    let result = categoriesSchema.findByIdAndUpdate(_id, record, {new: true});
+    return result;
   }
 
   delete(_id) {

@@ -15,6 +15,7 @@ const products = new Products();
 
 const Categories = require('./models/categories.js');
 const categories = new Categories();
+const QClient = require('@nmq/q/client');
 
 // Prepare the express app
 const app = express();
@@ -53,6 +54,7 @@ function getCategories(request,response,next) {
         results: data,
       };
       response.status(200).json(output);
+      QClient.publish('database', 'read', output);
     })
     .catch( next );
 }
@@ -60,14 +62,20 @@ function getCategories(request,response,next) {
 function getCategory(request,response,next) {
   // expects an array with the one matching record from the model
   categories.get(request.params.id)
-    .then( result => response.status(200).json(result[0]) )
+    .then( result => {
+      response.status(200).json(result[0]) ;
+      QClient.publish('database', 'read', result[0]);
+    })
     .catch( next );
 }
 
 function postCategories(request,response,next) {
   // expects the record that was just added to the database
   categories.post(request.body)
-    .then( result => response.status(200).json(result[0]) )
+    .then( result => {
+      response.status(200).json(result[0]);
+      QClient.publish('database', 'create', result);
+    })
     .catch( next );
 }
 
@@ -75,14 +83,20 @@ function postCategories(request,response,next) {
 function putCategories(request,response,next) {
   // expects the record that was just updated in the database
   categories.put(request.params.id, request.body)
-    .then( result => response.status(200).json(result[0]) )
+    .then( result => {
+      response.status(200).json(result[0]) ;
+      QClient.publish('database', 'update', result);
+    })
     .catch( next );
 }
 
 function deleteCategories(request,response,next) {
   // Expects no return value (resource was deleted)
   categories.delete(request.params.id)
-    .then( result => response.status(200).json(result) )
+    .then( result => {
+      response.status(200).json(result); 
+      QClient.publish('database', 'delete', result);
+    })
     .catch( next );
 }
 
@@ -96,6 +110,7 @@ function getProducts(request,response,next) {
         results: data,
       };
       response.status(200).json(output);
+      QClient.publish('database', 'read', output);
     })
     .catch( next );
 }
@@ -103,14 +118,20 @@ function getProducts(request,response,next) {
 function getProduct(request,response,next) {
   // expects an array with one object in it
   products.get(request.params.id)
-    .then( result => response.status(200).json(result[0]) )
+    .then( result => {
+      response.status(200).json(result[0]);
+      QClient.publish('database', 'read', result[0]);
+    })
     .catch( next );
 }
 
 function postProducts(request,response,next) {
   // expects the record that was just added to the database
   products.post(request.body)
-    .then( result => response.status(200).json(result) )
+    .then( result => {
+      response.status(200).json(result);
+      QClient.publish('database', 'create', result);
+    })
     .catch( next );
 }
 
@@ -118,14 +139,20 @@ function postProducts(request,response,next) {
 function putProducts(request,response,next) {
   // expects the record that was just updated in the database
   products.put(request.params.id, request.body)
-    .then( result => response.status(200).json(result) )
+    .then( result => {
+      response.status(200).json(result);
+      QClient.publish('database', 'update', result);
+    })
     .catch( next );
 }
 
 function deleteProducts(request,response,next) {
   // Expects no return value (the resource should be gone)
   products.delete(request.params.id)
-    .then( result => response.status(200).json(result) )
+    .then( result => {
+      response.status(200).json(result); 
+      QClient.publish('database', 'delete', result);
+    })
     .catch( next );
 }
 
