@@ -7,7 +7,7 @@
 
 ### Links and Resources
 * [submission PR](https://github.com/401-advancedjs/nmq-database/pull/1)
-* [travis]()
+* [travis](https://www.travis-ci.com/401-advancedjs/nmq-database)
 
 #### Documentation
 * [mongoose docs](https://mongoosejs.com/docs/middleware.html)
