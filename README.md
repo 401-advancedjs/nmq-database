@@ -1,16 +1,18 @@
 ![CF](http://i.imgur.com/7v5ASc8.png) LAB
 =================================================
 
-## Data Modeling
+## Q Server - Database
 
 ### Author: Melissa Stock
 
 ### Links and Resources
-* [submission PR](https://github.com/401-advancedjs/data-modeling/pull/1)
-* [travis](https://www.travis-ci.com/401-advancedjs/data-modeling)
+* [submission PR](https://github.com/401-advancedjs/nmq-database/pull/1)
+* [travis]()
 
 #### Documentation
 * [mongoose docs](https://mongoosejs.com/docs/middleware.html)
+* [jsdoc](https://jsdoc.app/)
+
 
 ### Modules
 #### `categories.js`
@@ -22,7 +24,7 @@
 
 ###### `post(entry) -> JSON object containing entry`
 ###### `get(_id) -> JSON object with _id`
-###### `put(id_, entry) -> JSON object with _id containing updated entry`
+###### `put(_id, entry) -> JSON object with _id containing updated entry`
 ###### `delete(_id) -> deletes JSON object with _id`
 
 ### Setup

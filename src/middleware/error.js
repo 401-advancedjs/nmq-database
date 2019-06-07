@@ -1,4 +1,10 @@
 'use strict';
+
+/**
+ * Handles all other errors
+ * @module error
+ */
+
 const QClient = require('@nmq/q/client');
 
 module.exports = (err, req, res, next) => {

@@ -1,4 +1,10 @@
 'use strict';
+
+/**
+ * Handles resouce not found error
+ * @module 404 error
+ */
+
 const QClient = require('@nmq/q/client');
 
 module.exports = (req,res,next) => {
