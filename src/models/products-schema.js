@@ -1,5 +1,10 @@
 'use strict';
 
+/**
+ * Controls the schema for products
+ * @module products-schema
+ */
+
 const mongoose = require('mongoose');
 
 const products = mongoose.Schema({
